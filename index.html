@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AY-Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=Dancing+Script:wght@700&display=swap">
+<style>
+/* Layout: charcoal studio page taken from the logo; faceted teal falcon as the hero mark; the Guess product sits in its own purple panel. Single dark look by choice. */
+:root {
+  color-scheme: dark;
+  --bg: #3c3c3c;
+  --bg-deep: #303131;
+  --surface: #464847;
+  --line: #5a5d5c;
+  --fg: #f3f4f2;
+  --muted: #b9bfbc;
+  --teal: #4ea58c;
+  --teal-deep: #1f8a7e;
+  --teal-soft: #8fd3bd;
+  --purple: #a63fdc;
+  --purple-deep: #7d22b0;
+  --lilac: #f6ecfd;
+  --ok: #7be0a8;
+  --bad: #ff9a8a;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-script: "Dancing Script", "Brush Script MT", cursive;
+  --wrap: 1120px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+}
+[v-cloak] { visibility: hidden; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--teal-soft); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 20px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.05; text-wrap: balance; margin: 0; }
+.eyebrow {
+  font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--teal-soft);
+}
+
+/* Nav */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: .02em; }
+.brand img { width: 44px; height: 44px; border-radius: 10px; }
+.nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; font-weight: 500; }
+.nav ul a { text-decoration: none; color: var(--muted); }
+.nav ul a:hover, .nav ul a.active { color: var(--fg); }
+.menu-btn { display: none; background: none; border: 1px solid var(--line); color: var(--fg); border-radius: 8px; padding: 6px 12px; font: inherit; cursor: pointer; }
+
+/* Hero */
+.hero { padding-block: 64px 72px; position: relative; overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 7.4vw, 92px); font-weight: 800; letter-spacing: -.02em; margin-block: 14px 20px; }
+.hero h1 em { font-style: normal; color: var(--teal); }
+.hero p.lead { font-size: 19px; color: var(--muted); max-width: 34ch; margin: 0 0 30px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer;
+  font: 600 16px var(--font-body); padding: 13px 22px; border-radius: 999px; border: 1.5px solid transparent;
+  transition: transform .15s ease, background .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--teal); color: #102822; }
+.btn-primary:hover { background: var(--teal-soft); }
+.btn-ghost { border-color: var(--line); color: var(--fg); background: transparent; }
+.btn-ghost:hover { border-color: var(--teal); }
+.falcon-stage { position: relative; aspect-ratio: 1; max-width: 100%; }
+.falcon-stage::before {
+  content: ""; position: absolute; inset: 8%; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--teal) 22%, transparent), transparent 68%);
+}
+.falcon { position: relative; width: 100%; height: 100%; animation: soar 6s ease-in-out infinite; }
+@keyframes soar { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
+.falcon-tag {
+  position: absolute; right: 4%; bottom: 6%; background: var(--bg-deep); border: 1px solid var(--line);
+  border-radius: 12px; padding: 10px 14px; font-size: 14px; color: var(--muted); max-width: 220px;
+}
+.falcon-tag strong { display: block; color: var(--fg); font-family: var(--font-display); font-size: 16px; }
+
+/* Stats strip */
+.strip { border-block: 1px solid var(--line); background: var(--bg-deep); }
+.strip .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-block: 26px; }
+.strip div b { display: block; font-family: var(--font-display); font-size: 30px; color: var(--teal-soft); font-variant-numeric: tabular-nums; }
+.strip div span { color: var(--muted); font-size: 15px; }
+
+/* Sections */
+section.block { padding-block: 88px; }
+.head { max-width: 620px; margin-bottom: 44px; }
+.head h2 { font-size: clamp(34px, 5vw, 54px); font-weight: 700; margin-top: 10px; }
+.head p { color: var(--muted); margin: 16px 0 0; }
+
+/* Product */
+.product {
+  background: var(--purple); color: var(--lilac); border-radius: 28px; overflow: hidden;
+  display: grid; grid-template-columns: .85fr 1.15fr;
+}
+.product-intro { padding: 44px 40px; display: flex; flex-direction: column; gap: 18px; background: var(--purple-deep); }
+.product-intro img { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+.product-intro h3 { font-family: var(--font-script); font-size: 46px; font-weight: 700; line-height: 1; }
+.product-intro p { margin: 0; color: color-mix(in srgb, var(--lilac) 82%, transparent); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 14px; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.14); }
+.feature-list { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 10px; }
+.feature-list li { display: flex; gap: 10px; }
+.feature-list li::before { content: "✓"; font-weight: 700; color: var(--lilac); }
+
+/* Game */
+.game { padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+.game-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 14px; }
+.game-top .label { letter-spacing: .12em; text-transform: uppercase; font-weight: 600; }
+.score { font-variant-numeric: tabular-nums; background: rgba(0,0,0,.18); padding: 5px 12px; border-radius: 999px; }
+.card-word {
+  background: var(--lilac); color: #3a1452; border-radius: 20px; padding: 30px 24px; text-align: center;
+}
+.card-word small { display: block; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #8a5aa8; font-weight: 600; }
+.card-word .word { font-family: var(--font-script); font-size: clamp(40px, 6vw, 58px); line-height: 1.15; margin-top: 6px; overflow-wrap: anywhere; }
+.card-word .hint { font-size: 14px; color: #8a5aa8; margin-top: 4px; min-height: 1.4em; }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.opt {
+  font: 600 17px var(--font-body); padding: 15px 14px; border-radius: 14px; cursor: pointer;
+  border: 2px solid rgba(255,255,255,.35); background: rgba(255,255,255,.08); color: var(--lilac);
+  transition: background .15s, border-color .15s, transform .15s;
+}
+.opt:hover:not(:disabled) { background: rgba(255,255,255,.18); transform: translateY(-1px); }
+.opt:disabled { cursor: default; }
+.opt.right { background: var(--ok); border-color: var(--ok); color: #0e3a24; }
+.opt.wrong { background: var(--bad); border-color: var(--bad); color: #4a120a; }
+.game-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; min-height: 48px; }
+.feedback { font-weight: 600; }
+.btn-light { background: var(--lilac); color: var(--purple-deep); }
+
+/* Services */
+.services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+.service { background: var(--bg); padding: 30px 28px; display: flex; flex-direction: column; gap: 10px; }
+.service svg { width: 40px; height: 40px; }
+.service h3 { font-size: 22px; font-weight: 700; }
+.service p { margin: 0; color: var(--muted); }
+
+/* About */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.about p { color: var(--muted); margin: 0 0 16px; max-width: 60ch; }
+.values { display: grid; gap: 14px; }
+.value { display: grid; grid-template-columns: 52px 1fr; gap: 16px; padding: 18px 20px; background: var(--surface); border-radius: 16px; }
+.value .letter { font-family: var(--font-display); font-weight: 800; font-size: 34px; color: var(--teal); line-height: 1; }
+.value h3 { font-size: 19px; margin-bottom: 4px; }
+.value p { margin: 0; font-size: 15px; }
+
+/* Contact */
+.contact { background: var(--bg-deep); border-top: 1px solid var(--line); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+form { display: grid; gap: 14px; }
+label { font-size: 14px; font-weight: 600; color: var(--muted); display: grid; gap: 6px; }
+input, textarea, select {
+  font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px 14px; width: 100%;
+}
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--teal); outline-offset: 0; }
+textarea { min-height: 120px; resize: vertical; }
+.sent { background: color-mix(in srgb, var(--teal) 20%, transparent); border: 1px solid var(--teal); border-radius: 14px; padding: 18px 20px; }
+footer { padding-block: 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; background: var(--bg-deep); }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 880px) {
+  .hero .wrap, .product, .about, .contact-grid { grid-template-columns: 1fr; }
+  .falcon-stage { max-width: 420px; margin-inline: auto; width: 100%; }
+  .services { grid-template-columns: 1fr; }
+  .strip .wrap { grid-template-columns: repeat(2, 1fr); }
+  .menu-btn { display: inline-block; }
+  .nav ul { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0; background: var(--bg-deep); border-bottom: 1px solid var(--line); }
+  .nav ul.open { display: flex; }
+  .nav ul a { display: block; padding: 14px 20px; }
+  .game, .product-intro { padding: 28px 22px; }
+  section.block { padding-block: 64px; }
+}
+@media (max-width: 420px) { .options { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .falcon { animation: none; } html { scroll-behavior: auto; } .btn:hover, .opt:hover:not(:disabled) { transform: none; } }
+</style>
+</head>
+<body>
+
+<div id="app" v-cloak>
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top"><img src="aytech-logo.png" alt="AY-Tech logo">AY-Tech</a>
+      <button class="menu-btn" id="menu-btn" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen">Menu</button>
+      <ul :class="{ open: menuOpen }">
+        <li v-for="l in links" :key="l.id"><a :href="'#' + l.id" @click="menuOpen = false">{{ l.label }}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Software studio · Apps & Web</span>
+        <h1>Sharp ideas.<br><em>Swift</em> software.</h1>
+        <p class="lead">AY-Tech builds focused mobile apps and web products. Like a falcon, we pick a target, dive straight at it, and ship.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#products">Play Guess Translate Word</a>
+          <a class="btn btn-ghost" href="#contact">Work with us</a>
+        </div>
+      </div>
+      <div class="falcon-stage" aria-hidden="true">
+        <svg class="falcon" viewBox="0 0 400 400">
+          <!-- faceted falcon in the logo's ribbon style -->
+          <polygon points="150,210 205,60 260,40 215,190" fill="#1f8a7e"/>
+          <polygon points="170,205 150,95 205,60" fill="#4ea58c"/>
+          <polygon points="215,190 260,40 300,70 250,185" fill="#4ea58c"/>
+          <polygon points="250,185 300,70 318,120 272,190" fill="#1f8a7e"/>
+          <polygon points="95,240 170,205 272,190 225,240" fill="#4ea58c"/>
+          <polygon points="225,240 272,190 300,200 262,238" fill="#8fd3bd"/>
+          <polygon points="272,190 312,168 338,178 300,200" fill="#8fd3bd"/>
+          <polygon points="312,168 338,178 330,150" fill="#4ea58c"/>
+          <polygon points="338,178 360,184 342,195 300,200" fill="#1f8a7e"/>
+          <polygon points="360,184 372,194 352,197" fill="#f3f4f2"/>
+          <circle cx="330" cy="172" r="4" fill="#303131"/>
+          <polygon points="95,240 40,262 52,285 130,245" fill="#1f8a7e"/>
+          <polygon points="130,245 52,285 70,300 160,248" fill="#4ea58c"/>
+          <polygon points="200,240 190,275 205,276 225,240" fill="#8fd3bd"/>
+          <polygon points="235,240 230,272 244,272 255,239" fill="#8fd3bd"/>
+        </svg>
+        <div class="falcon-tag"><strong>Our falcon</strong>Focus, speed and precision in every release.</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="strip">
+    <div class="wrap">
+      <div><b>4+</b><span>Languages in Guess</span></div>
+      <div><b>Android</b><span>Available on Play Store</span></div>
+      <div><b>Web</b><span>Sites & web apps</span></div>
+      <div><b>{{ deck.length }}</b><span>Words per round</span></div>
+    </div>
+  </div>
+
+  <section class="block" id="products">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Our product</span>
+        <h2>Guess Translate Word</h2>
+        <p>A quick word game for language learners. You see a word in another language and guess what it means. Try a round right here.</p>
+      </div>
+
+      <div class="product">
+        <div class="product-intro">
+          <img src="guess-logo.png" alt="Guess Translate Word app icon">
+          <h3>Guess Translate Word</h3>
+          <p>Hello, 你好, bonjour, apa khabar. Learn everyday words across languages one guess at a time.</p>
+          <div class="chips">
+            <span class="chip">English</span><span class="chip">中文</span><span class="chip">Français</span><span class="chip">Bahasa Melayu</span>
+          </div>
+          <ul class="feature-list">
+            <li>Short rounds that fit a coffee break</li>
+            <li>Hints show the language and how to say it</li>
+            <li>Track your streak as you learn</li>
+          </ul>
+        </div>
+
+        <div class="game">
+          <div class="game-top">
+            <span class="label">Try it · Round {{ round }} of {{ deck.length }}</span>
+            <span class="score">Score {{ score }} · Streak {{ streak }}</span>
+          </div>
+          <template v-if="!finished">
+            <div class="card-word">
+              <small>{{ current.lang }}</small>
+              <div class="word">{{ current.word }}</div>
+              <div class="hint">{{ showHint ? 'Say it: ' + current.say : '' }}</div>
+            </div>
+            <div class="options">
+              <button v-for="(o, i) in current.options" :key="o" :id="'opt-' + i" class="opt"
+                :class="optClass(o)" :disabled="picked !== null" @click="pick(o)">{{ o }}</button>
+            </div>
+            <div class="game-foot">
+              <span class="feedback" aria-live="polite">{{ feedback }}</span>
+              <button v-if="picked === null" class="btn btn-ghost" style="color:var(--lilac);border-color:rgba(255,255,255,.4)" @click="showHint = true">Show hint</button>
+              <button v-else class="btn btn-light" @click="next">{{ round < deck.length ? 'Next word' : 'See result' }}</button>
+            </div>
+          </template>
+          <template v-else>
+            <div class="card-word">
+              <small>Round complete</small>
+              <div class="word">{{ score }} / {{ deck.length }}</div>
+              <div class="hint">{{ score === deck.length ? 'Perfect score. Bravo!' : 'Nice work. Play again to beat it.' }}</div>
+            </div>
+            <div class="game-foot"><span></span><button class="btn btn-light" @click="restart">Play again</button></div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="services" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">What we do</span>
+        <h2>From idea to app store</h2>
+      </div>
+      <div class="services">
+        <div class="service" v-for="s in services" :key="s.title">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><polygon :points="s.shape" fill="var(--teal)"/><polygon :points="s.shape2" fill="var(--teal-deep)"/></svg>
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.text }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="about" style="padding-top:0">
+    <div class="wrap about">
+      <div>
+        <div class="head" style="margin-bottom:24px">
+          <span class="eyebrow">About AY-Tech</span>
+          <h2>A small team with a falcon's focus</h2>
+        </div>
+        <p>AY-Tech is an independent studio that designs and builds apps people enjoy using every day. Our first product, Guess Translate Word, turns vocabulary practice into a quick guessing game.</p>
+        <p>We keep teams small and releases frequent, and we listen closely to the people who use what we make.</p>
+      </div>
+      <div class="values">
+        <div class="value" v-for="v in values" :key="v.letter">
+          <span class="letter">{{ v.letter }}</span>
+          <div><h3>{{ v.title }}</h3><p>{{ v.text }}</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="head">
+        <span class="eyebrow">Contact</span>
+        <h2>Have an app in mind?</h2>
+        <p>Tell us about your idea, a feature request for Guess, or a partnership. We reply within two working days.</p>
+      </div>
+      <div>
+        <div v-if="sent" class="sent">
+          <strong>Thanks, {{ form.name || 'friend' }}.</strong> Your message is ready. Connect this form to your email or backend to start receiving messages.
+          <div style="margin-top:12px"><button class="btn btn-ghost" @click="sent = false">Write another</button></div>
+        </div>
+        <form v-else @submit.prevent="submit">
+          <label for="f-name">Name<input id="f-name" v-model="form.name" required placeholder="Your name"></label>
+          <label for="f-email">Email<input id="f-email" type="email" v-model="form.email" required placeholder="you@example.com"></label>
+          <label for="f-topic">Topic
+            <select id="f-topic" v-model="form.topic">
+              <option>New project</option><option>Guess Translate Word</option><option>Partnership</option>
+            </select>
+          </label>
+          <label for="f-msg">Message<textarea id="f-msg" v-model="form.message" required placeholder="What are you building?"></textarea></label>
+          <div><button class="btn btn-primary" type="submit">Send message</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© {{ new Date().getFullYear() }} AY-Tech. All rights reserved.</span>
+      <span>Home of Guess Translate Word</span>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
+<script>
+const WORDS = [
+  { word: "你好", lang: "Chinese", say: "nǐ hǎo", answer: "Hello", pool: ["Goodbye", "Thank you", "Friend"] },
+  { word: "Bonjour", lang: "French", say: "bon-ZHOOR", answer: "Good day", pool: ["Good night", "Please", "Sorry"] },
+  { word: "Apa khabar", lang: "Malay", say: "AH-pah KAH-bar", answer: "How are you?", pool: ["Where are you?", "What time is it?", "Excuse me"] },
+  { word: "Terima kasih", lang: "Malay", say: "teh-REE-mah KAH-see", answer: "Thank you", pool: ["Welcome", "Hello", "Yes"] },
+  { word: "谢谢", lang: "Chinese", say: "xiè xie", answer: "Thank you", pool: ["You're welcome", "Good morning", "Water"] },
+  { word: "Merci", lang: "French", say: "mair-SEE", answer: "Thank you", pool: ["Market", "Please", "Hello"] },
+  { word: "朋友", lang: "Chinese", say: "péng you", answer: "Friend", pool: ["Family", "Teacher", "Book"] },
+  { word: "Au revoir", lang: "French", say: "oh ruh-VWAHR", answer: "Goodbye", pool: ["See you", "Good evening", "Welcome"] }
+];
+const shuffle = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+const buildDeck = () => shuffle(WORDS).slice(0, 5).map(w => ({ ...w, options: shuffle([w.answer, ...w.pool]) }));
+
+Vue.createApp({
+  data() {
+    return {
+      menuOpen: false,
+      links: [{ id: "products", label: "Products" }, { id: "services", label: "Services" }, { id: "about", label: "About" }, { id: "contact", label: "Contact" }],
+      year: 2024,
+      deck: buildDeck(), round: 1, score: 0, streak: 0, picked: null, showHint: false, feedback: "Pick the meaning.", finished: false,
+      services: [
+        { title: "Mobile apps", text: "Android apps built for speed and a clean experience, from first sketch to Play Store release.", shape: "4,36 20,4 26,4 12,36", shape2: "20,36 30,14 36,36" },
+        { title: "Web products", text: "Fast websites and web apps with Vue, designed to work well on every screen size.", shape: "4,8 36,8 36,16 4,16", shape2: "4,22 26,22 26,32 4,32" },
+        { title: "Language tech", text: "Word games and learning tools that help people pick up new languages through play.", shape: "20,4 36,20 20,36 4,20", shape2: "20,12 28,20 20,28 12,20" }
+      ],
+      values: [
+        { letter: "A", title: "Aim", text: "Pick one clear problem and solve it well." },
+        { letter: "Y", title: "Yield", text: "Ship useful releases often, then improve from real feedback." },
+        { letter: "T", title: "Trust", text: "Respect users' time, data and attention." }
+      ],
+      form: { name: "", email: "", topic: "New project", message: "" }, sent: false
+    };
+  },
+  computed: { current() { return this.deck[this.round - 1]; } },
+  methods: {
+    pick(o) {
+      this.picked = o;
+      if (o === this.current.answer) { this.score++; this.streak++; this.feedback = "Correct!"; }
+      else { this.streak = 0; this.feedback = "It means “" + this.current.answer + "”."; }
+    },
+    optClass(o) {
+      if (this.picked === null) return "";
+      if (o === this.current.answer) return "right";
+      return o === this.picked ? "wrong" : "";
+    },
+    next() {
+      if (this.round >= this.deck.length) { this.finished = true; return; }
+      this.round++; this.picked = null; this.showHint = false; this.feedback = "Pick the meaning.";
+    },
+    restart() { this.deck = buildDeck(); this.round = 1; this.score = 0; this.streak = 0; this.picked = null; this.showHint = false; this.finished = false; this.feedback = "Pick the meaning."; },
+    submit() { this.sent = true; }
+  }
+}).mount("#app");
+</script>
+</body>
+</html>
