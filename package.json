@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages -d . -s \"{index.html,*.png,google*.html}\""
-
+    "build": "rm -rf dist && mkdir dist && cp index.html *.png google*.html dist/",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
