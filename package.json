@@ -1,0 +1,24 @@
+{
+  "name": "ay-tech",
+  "version": "1.0.0",
+  "description": "AY Tech - Offical Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linus5ery/ay-tech.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/linus5ery/ay-tech/issues"
+  },
+  "homepage": "https://github.com/linus5ery/ay-tech#readme",
+  "dependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
